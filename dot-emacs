@@ -1,8 +1,8 @@
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(LaTeX-command "latex")
  '(TeX-PDF-mode t)
  '(TeX-auto-save t)
@@ -12,7 +12,7 @@
  '(auto-revert-interval 1)
  '(contentswitch-max-files-from-history 60)
  '(default-input-method "german-postfix")
- '(global-whitespace-mode t)
+ '(global-whitespace-mode nil)
  '(indent-tabs-mode t)
  '(inhibit-startup-screen t)
  '(preview-auto-cache-preamble t)
@@ -20,8 +20,10 @@
  '(tab-width 4)
  '(tuareg-comment-end-extra-indent 1)
  '(tuareg-default-indent 4)
- '(tuareg-electric-indent nil)
- '(tuareg-in-indent 0)
+ '(tuareg-electric-indent t)
+ '(tuareg-in-indent 0 t)
+ '(tuareg-indent-comments t)
+ '(tuareg-indent-leading-comments t)
  '(tuareg-lazy-= t)
  '(tuareg-lazy-paren t)
  '(tuareg-leading-star-in-doc t)
@@ -29,13 +31,21 @@
  '(tuareg-sig-struct-indent 4)
  '(tuareg-use-abbrev-mode nil)
  '(whitespace-action nil)
- '(whitespace-line-column 160))
+ '(whitespace-line-column 80))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- )
+ '(diff-added ((t (:foreground "#559944"))))
+ '(diff-context ((t nil)))
+ '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:foreground "RoyalBlue1"))))
+ '(diff-function ((t (:foreground "#00bbdd"))))
+ '(diff-header ((((class color) (min-colors 88) (background dark)) (:foreground "RoyalBlue1"))))
+ '(diff-hunk-header ((t (:foreground "#fbde2d"))))
+ '(diff-nonexistent ((t (:inherit diff-file-header :strike-through nil))))
+ '(diff-refine-change ((((class color) (min-colors 88) (background dark)) (:background "#182042"))))
+ '(diff-removed ((t (:foreground "#de1923")))))
 
 ; may be interesting:
 
@@ -46,7 +56,7 @@
 (load-file "~/elisp/contentswitch.el")
 
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-    (let* ((my-lisp-dir "~/elisp/")
+        (let* ((my-lisp-dir "~/elisp/")
            (default-directory my-lisp-dir))
       (setq load-path (cons my-lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
@@ -142,3 +152,12 @@
       (append '(("\\.ml[ily]?$" . tuareg-mode)
                 ("\\.topml$" . tuareg-mode))
               auto-mode-alist))
+
+;(load-file "~/elisp/tuareg-mode/tuareg.el")
+
+;; The following lines are always needed.  Choose your own keys.
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when global-font-lock-mode is on
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
