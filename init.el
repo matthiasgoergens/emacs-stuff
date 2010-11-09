@@ -1,3 +1,7 @@
+(set-background-color "black")
+(set-foreground-color "green")
+(server-start)
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -10,18 +14,24 @@
  '(TeX-output-view-style (quote (("^pdf$" "." "evince %o %(outpage)") ("^dvi$" ("^landscape$" "^pstricks$\\|^pst-\\|^psfrag$") "%(o?)dvips -t landscape %d -o && gv %f") ("^dvi$" "^pstricks$\\|^pst-\\|^psfrag$" "%(o?)dvips %d -o && gv %f") ("^dvi$" ("^a4\\(?:dutch\\|paper\\|wide\\)\\|sem-a4$" "^landscape$") "%(o?)xdvi %dS -paper a4r -s 0 %d") ("^dvi$" "^a4\\(?:dutch\\|paper\\|wide\\)\\|sem-a4$" "%(o?)xdvi %dS -paper a4 %d") ("^dvi$" ("^a5\\(?:comb\\|paper\\)$" "^landscape$") "%(o?)xdvi %dS -paper a5r -s 0 %d") ("^dvi$" "^a5\\(?:comb\\|paper\\)$" "%(o?)xdvi %dS -paper a5 %d") ("^dvi$" "^b5paper$" "%(o?)xdvi %dS -paper b5 %d") ("^dvi$" "^letterpaper$" "%(o?)xdvi %dS -paper us %d") ("^dvi$" "^legalpaper$" "%(o?)xdvi %dS -paper legal %d") ("^dvi$" "^executivepaper$" "%(o?)xdvi %dS -paper 7.25x10.5in %d") ("^dvi$" "." "%(o?)xdvi %dS %d") ("^html?$" "." "netscape %o"))))
  '(TeX-parse-self t)
  '(auto-revert-interval 1)
+ '(completion-auto-help (quote lazy))
  '(contentswitch-max-files-from-history 60)
  '(default-input-method "german-postfix")
+ '(enable-recursive-minibuffers t)
+ '(exec-path (quote ("~/bin" "/usr/local/sbin" "/usr/local/bin" "/usr/sbin" "/usr/bin" "/sbin" "/bin" "/usr/games" "/usr/lib/emacs/23.1/x86_64-linux-gnu")))
  '(global-whitespace-mode nil)
  '(indent-tabs-mode t)
  '(inhibit-startup-screen t)
+ '(mouse-autoselect-window t)
+ '(org-read-date-prefer-future nil)
+ '(pop-up-frames nil)
  '(preview-auto-cache-preamble t)
  '(preview-preserve-counters t)
  '(tab-width 4)
  '(tuareg-comment-end-extra-indent 1)
  '(tuareg-default-indent 4)
  '(tuareg-electric-indent t)
- '(tuareg-in-indent 0 t)
+ '(tuareg-in-indent 0)
  '(tuareg-indent-comments t)
  '(tuareg-indent-leading-comments t)
  '(tuareg-lazy-= t)
@@ -52,18 +62,18 @@
 
 
 ;(load-file "/home/matthias/emacs/graphviz-dot-mode.el")
-(load-file "~/elisp/zimpl-mode.el")
-(load-file "~/elisp/contentswitch.el")
+;(load-file "~/.emacs.d/elisp/zimpl-mode.el")
+(load-file "~/.emacs.d/elisp/contentswitch.el")
 
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
-        (let* ((my-lisp-dir "~/elisp/")
+	(let* ((my-lisp-dir "~/.emacs.d/elisp/")
            (default-directory my-lisp-dir))
       (setq load-path (cons my-lisp-dir load-path))
       (normal-top-level-add-subdirs-to-load-path)))
 
 ;(tex-pdf-mode t)
 
-(server-start)
+
 
 ;(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) ;turn on pdf-mode.  AUCTeX
 ;                                         ;will call pdflatex to
@@ -88,6 +98,8 @@
 (defun count nil "wc on buffer" (interactive)
   (shell-command-on-region (point-min) (point-max) "wc"))
 
+
+
 (show-paren-mode 1)
 (scroll-bar-mode)
 (menu-bar-mode 0)
@@ -102,7 +114,7 @@
 (put 'narrow-to-region 'disabled nil)
 
 ;                   ; set the path of the ocamlspot binary
-;(setq ocamlspot-path "/usr/local/bin/ocamlspot")
+(setq ocamlspot-path "/usr/local/bin/ocamlspot")
 
 ;                   ; autoload
 ;(autoload 'ocamlspot-query "ocamlspot" "OCamlSpot")
@@ -139,14 +151,14 @@
                 register-alist)))
 
 
-(global-set-key (kbd "C-x b") 'contentswitch)
-(global-set-key (kbd "C-c C-b") 'switch-to-buffer)
+(global-set-key (kbd "C-x C-b") 'contentswitch)
+;(global-set-key (kbd "C-c C-b") 'switch-to-buffer)
 
-(add-to-list 'load-path "~/.elisp/tuareg-mode")
+(add-to-list 'load-path "~/.emacs.d/elisp/tuareg-mode")
 (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
 (autoload 'camldebug "camldebug" "Run the Caml debugger" t)
 (autoload 'tuareg-imenu-set-imenu "tuareg-imenu"
-"Configuration of imenu for tuareg" t)
+  "Configuration of imenu for tuareg" t)
 (add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
 (setq auto-mode-alist
       (append '(("\\.ml[ily]?$" . tuareg-mode)
